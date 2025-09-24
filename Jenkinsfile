@@ -14,10 +14,11 @@ pipeline {
        steps {
          echo 'Building the application...'
          // Using Maven build
+         dir('spring-petclinic') {
          sh 'mvn clean package'
        }
      }
- 
+   }
      stage('Deploy'){
        steps {
          echo 'Deploying application...'
