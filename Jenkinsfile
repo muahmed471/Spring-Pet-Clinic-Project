@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone repo
                 git url: 'https://github.com/muahmed471/Spring-Pet-Clinic-Project.git',
                     branch: 'main'
             }
@@ -13,18 +12,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                dir('spring-petclinic') {
-                    sh 'mvn clean package'
-                }
+                sh './mvnw clean package'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                dir('spring-petclinic') {
-                    sh 'java -jar target/*.jar &'
-                }
+                sh 'java -jar target/*.jar &'
             }
         }
     }
