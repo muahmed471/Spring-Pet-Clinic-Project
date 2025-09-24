@@ -14,7 +14,7 @@ pipeline {
        steps {
          echo 'Building the application...'
          // Using Maven build
-         sh 'sudo mvn clean package'
+         sh 'mvn clean package'
        }
      }
  
@@ -22,7 +22,7 @@ pipeline {
        steps {
          echo 'Deploying application...'
          // Command to build code
-         sh 'sudo java -jar target/*.jar &'
+         sh 'java -jar target/*.jar &'
        }
      }
    }
