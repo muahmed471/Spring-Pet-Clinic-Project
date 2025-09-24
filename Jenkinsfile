@@ -1,42 +1,44 @@
 pipeline {
-   agent any
+    agent any
 
-   stages {
-     stage('Checkout') {
-       steps {
-         // Clone your repo
-         git branch: 'main',
-             url: 'https://github.com/muahmed471/Spring-Pet-Clinic-Project.git'
-       }
-     }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clone repo with submodules
+                git url: 'https://github.com/muahmed471/Spring-Pet-Clinic-Project.git',
+                    branch: 'main',
+                    changelog: false,
+                    poll: false
+                // Init submodules
+                sh 'git submodule update --init --recursive'
+            }
+        }
 
-     stage('Build') {
-       steps {
-         echo 'Building the application...'
-         // Run Maven inside spring-petclinic folder
-         dir('spring-petclinic') {
-           sh 'mvn clean package'
-         }
-       }
-     }
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                dir('spring-petclinic') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
 
-     stage('Deploy') {
-       steps {
-         echo 'Deploying application...'
-         // Run the JAR from spring-petclinic/target
-         dir('spring-petclinic') {
-           sh 'nohup java -jar target/*.jar > app.log 2>&1 &'
-         }
-       }
-     }
-   }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                dir('spring-petclinic') {
+                    sh 'java -jar target/*.jar &'
+                }
+            }
+        }
+    }
 
-   post {
-     success {
-       echo 'Pipeline completed Successfully'
-     }
-     failure {
-       echo 'Pipeline failed'
-     }
-   }
+    post {
+        success {
+            echo 'Pipeline completed Successfully'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
 }
