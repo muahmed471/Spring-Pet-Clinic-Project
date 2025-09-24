@@ -4,13 +4,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone repo with submodules
+                // Clone repo
                 git url: 'https://github.com/muahmed471/Spring-Pet-Clinic-Project.git',
-                    branch: 'main',
-                    changelog: false,
-                    poll: false
-                // Init submodules
-                sh 'git submodule update --init --recursive'
+                    branch: 'main'
             }
         }
 
