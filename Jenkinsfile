@@ -5,7 +5,7 @@ pipeline {
      stage('Checkout'){
        steps {
          // Clone your repo
-         git branch: 'master',
+         git branch: 'main',
             url: 'https://github.com/muahmed471/Spring-Pet-Clinic-Project.git'
        }
      } 
