@@ -35,7 +35,7 @@ pipeline {
                 script {
                     sh '''
                       for i in {1..10}; do
-                        curl -s http://localhost:$APP_PORT > /dev/null && exit 0
+                        curl -s http://192.168.31.18:$APP_PORT > /dev/null && exit 0
                         echo "Waiting for app..."
                         sleep 3
                       done
